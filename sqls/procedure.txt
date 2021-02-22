@@ -1,0 +1,3 @@
+1. create a database named movie1
+2. paste the create_user create table statement into the psql cmd
+3. run the gen.py file and done
