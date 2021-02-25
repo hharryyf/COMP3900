@@ -1,7 +1,8 @@
 import os
 import random
 import datetime
-import psycopg2
+import csv
+#import psycopg2
 
 file1 = open('yob1880.txt', 'r')
 Lines = file1.readlines()
@@ -39,10 +40,17 @@ print(ans)
 print(len(ans))
 
 # change this line with your own password and port
-con = psycopg2.connect(port=5433,database='movie1', user='postgres',password='19990115')
-cur = con.cursor()
+# con = psycopg2.connect(port=5433,database='movie1', user='postgres',password='19990115')
+# cur = con.cursor()
+
+row_list = []
+row_list.append(["id", "email", "password", "birthday", "gender", "isadmin"])
 for i in range(0, 671):
-    cur.execute("insert into users values(%s,%s,%s,%s,%s,%s)", [i+1, ans[i][0], ans[i][1], ans[i][2], ans[i][3], ans[i][4]])
-con.commit()
-cur.close()
-con.close()
+    row_list.append([i+1, ans[i][0], ans[i][1], ans[i][2], ans[i][3], ans[i][4]])
+    #cur.execute("insert into users values(%s,%s,%s,%s,%s,%s)", [i+1, ans[i][0], ans[i][1], ans[i][2], ans[i][3], ans[i][4]])
+with open('users.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(row_list)
+#con.commit()
+#cur.close()
+#con.close()
